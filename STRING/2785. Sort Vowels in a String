@@ -1,0 +1,67 @@
+Input: s = "lEetcOde"
+Output: "lEOtcede"
+Explanation: 'E', 'O', and 'e' are the vowels in s; 'l', 't', 'c', and 'd' are all consonants. The vowels are sorted according to their ASCII values, and the consonants remain in the same places.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string sortVowels(string s) {
+    vector<char> upperVowels;
+    vector<char> lowerVowels;
+
+    // Step 1: Collect all vowels, separate uppercase and lowercase vowels
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') {
+            lowerVowels.push_back(s[i]);
+            s[i] = '#'; // Replace vowels with '#'
+        } else if (s[i] == 'A' || s[i] == 'E' || s[i] == 'I' || s[i] == 'O' || s[i] == 'U') {
+            upperVowels.push_back(s[i]);
+            s[i] = '#'; // Replace vowels with '#'
+        }
+    }
+
+    // Step 2: Sort the uppercase and lowercase vowels
+    sort(upperVowels.begin(), upperVowels.end());
+    sort(lowerVowels.begin(), lowerVowels.end());
+
+    // Step 3: Reinsert the sorted vowels back into the string
+    int upperIndex = 0, lowerIndex = 0;
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == '#') {
+            if (upperIndex < upperVowels.size()) {
+                s[i] = upperVowels[upperIndex++];
+            } else {
+                s[i] = lowerVowels[lowerIndex++];
+            }
+        }
+    }
+
+    return s;
+}
+
+int main() {
+    string s = "lEetcOde";
+    cout << sortVowels(s) << endl;  // Should output "lEOtcede"
+    return 0;
+}
