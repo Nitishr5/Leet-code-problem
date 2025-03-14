@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+class Solution {
+public:
+    int maximumCandies(std::vector<int>& candies, int k) {
+        long long start = 1;  // Minimum possible candies each child can get
+        long long end = *std::max_element(candies.begin(), candies.end());  // Maximum pile size
+        
+        int ans = 0;  // To store the maximum number of candies a child can get
+        
+        while (start <= end) {
+            long long mid = start + (end - start) / 2;  // Safe calculation of mid
+            long long count = 0;
+            
+            // Calculate how many piles of size `mid` we can form
+            for (int pile : candies) {
+                count += pile / mid;
+            }
+            
+            // If we can form at least `k` piles, try for a larger pile size
+            if (count >= k) {
+                ans = mid;  // Update the answer
+                start = mid + 1;
+            } else {
+                end = mid - 1;  // Try smaller pile sizes
+            }
+        }
+        
+        return ans;
+    }
+};
+
+int main() {
+    Solution sol;
+    
+    // Test Case 1: candies = [5, 8, 6], k = 3
+    std::vector<int> candies1 = {5, 8, 6};
+    int k1 = 3;
+    std::cout << "Maximum candies each child can get (Test 1): " << sol.maximumCandies(candies1, k1) << std::endl;
+    
+    // Test Case 2: candies = [2, 5], k = 11
+    std::vector<int> candies2 = {2, 5};
+    int k2 = 11;
+    std::cout << "Maximum candies each child can get (Test 2): " << sol.maximumCandies(candies2, k2) << std::endl;
+
+    return 0;
+}
