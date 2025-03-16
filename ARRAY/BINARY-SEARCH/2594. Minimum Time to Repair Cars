@@ -7,7 +7,6 @@ SOLVE USING BINARY-SEARCH
 
 
 
-
 class Solution {
 public:
     long long repairCars(vector<int>& ranks, int cars) {
@@ -15,7 +14,7 @@ public:
         long long end=1e15;
         long long mid=(start+end)/211;
 
-        long long minTime= 1e18;
+        long long minTime= 1e18; //1e15 mens=1000000000000000000
 
         //Binary search start
         while(start<=end)
