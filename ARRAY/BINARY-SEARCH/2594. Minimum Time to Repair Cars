@@ -1,0 +1,43 @@
+THIS IS SAME BOOK-ALOOCATION & KOKO-BANANA EATING PROBLEM TYPE 
+SOLVE USING BINARY-SEARCH
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    long long repairCars(vector<int>& ranks, int cars) {
+        long long start=1;
+        long long end=1e15;
+        long long mid=(start+end)/211;
+
+        long long minTime= 1e18;
+
+        //Binary search start
+        while(start<=end)
+        {
+            //calculation of time no of cars be repersent on mid time when every workers together
+            long long totalCars=0;
+            for(auto &rank:ranks)
+            {
+                long long cars=(mid/rank);
+                cars= sqrt(cars);
+                totalCars+=cars;
+            }
+            if(totalCars>=cars)
+            {
+                minTime=min(minTime,mid);
+                end=mid-1ll;
+            }
+            else{
+                start=mid+1ll;
+            }
+            mid=(start+end)/2ll;
+        }
+        return minTime;
+    }
+};
