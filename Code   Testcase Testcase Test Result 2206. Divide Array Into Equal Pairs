@@ -1,0 +1,28 @@
+FIRST COUNT FREQUENCY OF ALL NUMBER 
+EX- num[3,2,3,2,2,2] pair=> 3=2
+                            2=4  if all pair come in even order give TRUE else give FALSE
+
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    bool divideArray(vector<int>& nums) {
+        map<int,int> m;
+
+        for(int i=0;i<nums.size();i++)
+        m[nums[i]]++;// Count the frequency of each number in nums
+
+        for(auto it:m)
+                if(it.second%2) // Check if the frequency is odd
+                    return false;// Return false if any frequency is odd
+
+            return true;// Return true if all frequencies are even
+    } 
+    
+};
