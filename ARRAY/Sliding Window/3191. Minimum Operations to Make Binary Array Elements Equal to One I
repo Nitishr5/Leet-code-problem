@@ -1,0 +1,88 @@
+Input: nums = [0,1,1,1,0,0]
+
+Output: 3
+
+Explanation:
+We can do the following operations:
+
+Choose the elements at indices 0, 1 and 2. The resulting array is nums = [1,0,0,1,0,0].
+Choose the elements at indices 1, 2 and 3. The resulting array is nums = [1,1,1,0,0,0].
+Choose the elements at indices 3, 4 and 5. The resulting array is nums = [1,1,1,1,1,1].
+
+
+
+
+
+
+
+
+CODE-PART====================>
+
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums) {
+        int n = nums.size();
+        int count = 0;
+        
+        // Iterate through the array except the last two elements
+        for (int i = 0; i < n - 2; i++) {
+            // If current element is 0, flip the current, next, and next-to-next
+            if (nums[i] == 0) {
+                nums[i] = 1 - nums[i];
+                nums[i + 1] = 1 - nums[i + 1];
+                nums[i + 2] = 1 - nums[i + 2];
+                count++;
+            }
+        }
+        
+        // After flipping, if the last two elements are still 0, it's impossible to fix them
+        if (nums[n - 1] == 0 || nums[n - 2] == 0) {
+            return -1;
+        }
+        
+        return count;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2nd SOLUTION====================================================>.>>>>>>>>>>>>>>
+
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums) {
+        int n=nums.size();
+        int count=0;
+        for(int i=0;i<n-2;i++)
+        {
+            if(nums[i]==0){
+                for(int j=i;j<=i+2;j++)
+                nums[j]=!nums[j];
+                count++;
+            }
+        }
+        if(nums[n-2]&&nums[n-1])
+        return count;
+        return -1;
+    }
+};
