@@ -1,0 +1,59 @@
+🧠 Problem Understanding
+You're given an array nums of size 3, representing the lengths of the sides of a potential triangle. Your task is to determine:
+
+If these sides can form a valid triangle.
+
+If valid, classify the triangle as:
+
+"equilateral": All sides equal.
+
+"isosceles": Exactly two sides equal.
+
+"scalene": All sides of different lengths.
+
+If not valid, return "none".
+
+✅ Approach
+Sort the Array: Sorting helps in simplifying the comparison logic.
+
+Check Triangle Validity:
+
+Use the triangle inequality theorem: The sum of the lengths of any two sides must be greater than the length of the remaining side.
+
+After sorting, check if nums[0] + nums[1] > nums[2]. If not, return "none".
+
+Classify the Triangle:
+
+If all sides are equal (nums[0] == nums[2]), return "equilateral".
+
+If any two sides are equal (nums[0] == nums[1] or nums[1] == nums[2]), return "isosceles".
+
+If all sides are different, return "scalene".
+
+
+
+
+
+
+
+'
+
+
+
+
+
+class Solution {
+public:
+    string triangleType(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        if(nums[0]+nums[1]<=nums[2])
+        return "none";
+          if (nums[0] == nums[2]) {
+        return "equilateral";
+    }
+    if (nums[0] == nums[1] || nums[1] == nums[2]) {
+        return "isosceles";
+    }
+    return "scalene";
+    }
+};
