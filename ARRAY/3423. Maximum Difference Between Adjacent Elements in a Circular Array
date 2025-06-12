@@ -1,0 +1,182 @@
+Absolute diffrences kabhi (-) me value nhi aata hai ye usko posetive me change kr dega
+
+
+class Solution {
+public:
+    int maxAdjacentDistance(vector<int>& nums) {
+        int n=nums.size();
+        int maxDiff=0;
+
+        for(int i=0;i<n;i++)
+        {
+            int nextIndex=(i+1)%n;// circular behavior
+            int diff=abs(nums[i]-nums[nextIndex]);// abs() ka mtlb agar negetive(-) me value aata hai to wo usko possetive me kr dega
+            maxDiff= max(maxDiff, diff);
+        }
+        return maxDiff;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+🔄 Circular Array Kya Hota Hai?
+Circular array ek aisa array hota hai jisme last element ke baad phir se first element consider kiya jata hai.
+Iska matlab: a[n−1] ke baad a[0] aata hai, jaise ki array gola (circle) ban gaya ho.
+
+🔁 Example:
+arr = [10, 20, 30, 40]
+Normal adjacent pairs:
+
+(10, 20)
+
+(20, 30)
+
+(30, 40)
+
+Circular array mein ek aur pair consider hota hai:
+
+(40, 10) ← last and first
+
+🎯 Key Property:
+Agar n size ka array hai, to:
+
+nextIndex = (i + 1) % n
+Ye trick ensure karti hai ki jab i = n-1 ho (last element), tab (n-1 + 1) % n = 0, matlab first element.
+
+🌀 Visual Representation:
+Index:      0     1     2     3
+           [10] - [20] - [30] - [40]
+             \__________________↑
+               ←←←←←←←←←←←←←←←←←
+Array gol gol chalta hai → isiliye "circular".
+
+
+
+
+
+
+
+
+
+
+
+🔹 Definition:
+👉 Adjacent Elements:
+Array ke side-by-side (yaani lagatar) elements ko adjacent kaha jata hai.
+
+For example, agar array hai:
+
+cpp
+Copy
+Edit
+arr = [4, 7, 2, 9]
+To adjacent pairs hain:
+
+(4, 7)
+
+(7, 2)
+
+(2, 9)
+
+********************************************************************************************************************************************************
+👉 Absolute Difference:
+Do numbers ka absolute difference hota hai:
+
+
+|a - b|
+Matlab:
+
+Agar a - b positive hai, toh wahi
+
+Agar a - b negative hai, toh uska positive version
+
+🔸 Absolute difference kabhi negative nahi hota
+
+🧮 Example with Absolute Differences:
+For array:
+
+cpp
+Copy
+Edit
+arr = [4, 7, 2, 9]
+Calculate absolute differences between adjacent elements:
+
+|4 - 7| = | -3 | = 3
+
+|7 - 2| = | 5 | = 5
+
+|2 - 9| = | -7 | = 7
+
+✅ Result: [3, 5, 7]
+
+**********************************************************************************************************************************
+
+🔄 Circular Version:
+If array is circular, then also include:
+
+|9 - 4| = 5
+
+Final differences: [3, 5, 7, 5]
+👉 Max = 7
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+🧩 Given Array:
+cpp
+Copy
+Edit
+arr = [4, 7, 2, 9]
+Step 1: Adjacent Pairs (Normal – Linear)
+Hum side-by-side (adjacent) pairs lete hain:
+
+Index	Pair	Calculation	Absolute Difference
+0-1	4 and 7	`	4 - 7
+1-2	7 and 2	`	7 - 2
+2-3	2 and 9	`	2 - 9
+
+✅ Abhi tak differences: [3, 5, 7]
+
+Step 2: Circular Pair (Last and First)
+Since yeh circular array hai, to last element (9) ko first element (4) ke sath bhi compare karna padega:
+
+Index	Pair	Calculation	Absolute Difference
+3-0	9 and 4	`	9 - 4
+
+Now we add this to our list:
+✅ Final Differences = [3, 5, 7, 5]
+
+Step 3: Max nikalna
+Now list hai: [3, 5, 7, 5]
+
+Inme se sabse bada number kya hai?
+
+✅ Max = 7
